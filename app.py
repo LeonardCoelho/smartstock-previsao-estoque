@@ -10,8 +10,8 @@ st.markdown("Simulação de previsão de demanda usando IA + alertas automático
 
 @st.cache_data
 def carregar_dados():
-    previsoes = pd.read_excel("output/previsoes_alertas.xlsx", sheet_name="Previsoes")
-    alertas = pd.read_excel("output/previsoes_alertas.xlsx", sheet_name="Alertas_Resumo")
+    previsoes = pd.read_csv("output/previsoes.csv")
+    alertas = pd.read_csv("output/alertas.csv")
     return previsoes, alertas
 
 previsoes, alertas = carregar_dados()
