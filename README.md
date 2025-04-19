@@ -43,6 +43,3 @@ python src/previsao_completa.py
 
 # Rodar o app
 streamlit run app.py
-
-![Dashboard](output/print_dashboard.png)
-![Gráfico de Vendas](output/grafico_vendas.png)
