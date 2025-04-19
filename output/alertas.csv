@@ -1,0 +1,4 @@
+﻿Produto;Estoque_Atual;Media_Prevista;Status
+Produto A;92;49,04;✅ OK
+Produto B;71;62,19;✅ OK
+Produto C;56;68,83;⚠️ ESTOQUE BAIXO
