@@ -1,4 +1,5 @@
 import streamlit as st
+import io
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
@@ -27,16 +28,23 @@ def carregar_dados():
 
 previsoes, alertas = carregar_dados()
 
+# Gera o arquivo Excel combinando os dados
+excel_buffer = io.BytesIO()
+with pd.ExcelWriter(excel_buffer, engine="xlsxwriter") as writer:
+    previsoes.to_excel(writer, sheet_name="Previsoes", index=False)
+    alertas.to_excel(writer, sheet_name="Alertas", index=False)
+
+excel_buffer.seek(0)  # Volta o ponteiro para o início do arquivo
+
 produto_sel = st.sidebar.selectbox("🔍 Selecione o Produto", sorted(previsoes['Produto'].unique()))
 
 st.sidebar.markdown("📥 Baixe os resultados:")
-with open("output/previsoes_alertas.xlsx", "rb") as file:
-    st.sidebar.download_button(
-        label="📊 Baixar Excel",
-        data=file,
-        file_name="previsoes_alertas.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
+st.sidebar.download_button(
+    label="📊 Baixar Excel",
+    data=excel_buffer,
+    file_name="previsoes_alertas.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
 
 # Mostra os alertas filtrados pelo produto
 alerta_produto = alertas[alertas['Produto'] == produto_sel]
