@@ -51,10 +51,21 @@ alerta_produto = alertas[alertas['Produto'] == produto_sel]
 st.markdown(f"### 🔔 Status do Produto: **{produto_sel}**")
 st.dataframe(alerta_produto, use_container_width=True)
 
-# Gráfico
+# Gráfico gerado dinamicamente com matplotlib
 st.markdown("### 📈 Gráfico de Tendência das Vendas")
-imagem = Image.open("output/grafico_vendas.png")
-st.image(imagem, caption="Evolução de vendas e média móvel")
+
+df_graf = previsoes[previsoes['Produto'] == produto_sel]
+
+fig, ax = plt.subplots(figsize=(10, 4))
+ax.plot(df_graf["Data"], df_graf["Previsao_Venda"], marker='o', color='blue', label="Previsão de Venda")
+ax.axhline(y=df_graf["Estoque_Atual"].iloc[0], color='red', linestyle='--', label="Estoque Atual")
+ax.set_title(f"Evolução de Vendas e Estoque - {produto_sel}")
+ax.set_xlabel("Data")
+ax.set_ylabel("Unidades")
+ax.legend()
+ax.grid(True)
+
+st.pyplot(fig)
 
 # Previsões detalhadas
 st.markdown("### 📅 Previsões para os próximos 15 dias")
