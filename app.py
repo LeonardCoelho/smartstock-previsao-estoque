@@ -51,19 +51,30 @@ alerta_produto = alertas[alertas['Produto'] == produto_sel]
 st.markdown(f"### 🔔 Status do Produto: **{produto_sel}**")
 st.dataframe(alerta_produto, use_container_width=True)
 
-# Gráfico gerado dinamicamente com matplotlib
-st.markdown("### 📈 Gráfico de Tendência das Vendas")
+# Gráfico geral no app com seaborn e matplotlib
+st.markdown("### 📈 Vendas e Tendência dos Produtos (últimos 90 dias)")
 
-df_graf = previsoes[previsoes['Produto'] == produto_sel]
+import seaborn as sns
 
-fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(df_graf["Data"], df_graf["Previsao_Venda"], marker='o', color='blue', label="Previsão de Venda")
-ax.axhline(y=df_graf["Estoque_Atual"].iloc[0], color='red', linestyle='--', label="Estoque Atual")
-ax.set_title(f"Evolução de Vendas e Estoque - {produto_sel}")
-ax.set_xlabel("Data")
-ax.set_ylabel("Unidades")
+sns.set(style="whitegrid")
+fig, ax = plt.subplots(figsize=(14, 6))
+
+produtos = previsoes['Produto'].unique()
+
+for produto in produtos:
+    dados_produto = previsoes[previsoes['Produto'] == produto]
+    dados_produto = dados_produto.sort_values('Data')  # só pra garantir a ordem no gráfico
+    dados_produto['Media_Movel_7'] = dados_produto['Previsao_Venda'].rolling(window=7).mean()
+
+    ax.plot(dados_produto['Data'], dados_produto['Previsao_Venda'], label=f'{produto} - Previsões')
+    ax.plot(dados_produto['Data'], dados_produto['Media_Movel_7'], linestyle='--', label=f'{produto} - Média Móvel')
+
+ax.set_title('Vendas e Tendência dos Produtos (últimos 90 dias)')
+ax.set_xlabel('Data')
+ax.set_ylabel('Unidades Previstas')
 ax.legend()
 ax.grid(True)
+plt.tight_layout()
 
 st.pyplot(fig)
 
