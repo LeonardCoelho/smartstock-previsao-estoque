@@ -2,8 +2,6 @@
 
 **SmartStock** é uma simulação inteligente de previsão de vendas e análise de estoque, voltada para profissionais de logística e supply chain. Ele utiliza Machine Learning para prever a demanda futura com base em séries temporais, sinalizando se o estoque está OK, encalhado ou baixo.
 
-> Projeto ideal pra portfólio de quem quer migrar pra tech com aplicação prática em logística.
-
 ---
 
 ## 🎯 Objetivo
