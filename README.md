@@ -37,13 +37,18 @@ Aplicar ciência de dados na previsão de vendas dos próximos dias, comparando 
 
 ```bash
 smartstock-previsao-estoque/
+├── data/
+│   └── vendas_ficticias.csv        # Base gerada com dados simulados
+├── output/
+│   ├── alertas.csv                 # Resumo dos alertas
+│   ├── previsoes.csv               # Detalhamento das previsões
+│   ├── previsoes_alertas.xlsx      # Excel com as duas abas
+│   └── grafico_vendas.png          # Imagem com gráfico gerado
 ├── src/
-│   ├── app.py                # Interface com Streamlit
-│   └── previsao_completa.py # Script principal de previsão
-├── data/                     # Dados gerados
-├── output/                   # Resultados: gráfico + Excel
-├── requirements.txt          # Dependências do projeto
-└── README.md                 # Este arquivo
+│   ├── app.py                      # App Streamlit
+│   └── previsao_completa.py        # Script principal de geração + previsão
+├── requirements.txt                # Dependências do projeto
+└── README.md                       # Documentação do projeto
 ```
 
 ---
