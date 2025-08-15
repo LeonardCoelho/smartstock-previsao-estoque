@@ -53,7 +53,7 @@ Aplicar ciência de dados na previsão de vendas dos próximos dias e comparar c
 
 ## 📸 Demonstração
 
-![App Preview](imagem%20app%201.png)
+![App Preview](images/imagem%20app%201.png)
 
 ---
 
