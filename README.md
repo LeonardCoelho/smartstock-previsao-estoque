@@ -1,136 +1,100 @@
-# 📦 SmartStock - Previsão de Estoque com IA
+# 📦 SmartStock - Previsão Inteligente de Estoque
 
-**SmartStock** é uma simulação inteligente de previsão de vendas e análise de estoque, voltada para profissionais de logística e supply chain. Ele utiliza Machine Learning para prever a demanda futura com base em séries temporais, sinalizando se o estoque está OK, encalhado ou baixo.
+SmartStock é uma simulação de previsão de demanda de produtos usando **Machine Learning**, voltada para profissionais de logística e supply chain. O projeto gera alertas automáticos de estoque e dashboards interativos para auxiliar a tomada de decisão.
 
 ---
 
 ## 🎯 Objetivo
 
-Aplicar ciência de dados na previsão de vendas dos próximos dias, comparando com o estoque atual para gerar **alertas automáticos** que auxiliem a tomada de decisão logística.
+Aplicar ciência de dados na previsão de vendas dos próximos dias e comparar com o estoque atual para gerar alertas automáticos:
+
+- ⚠️ **Estoque Baixo**
+- 📦 **Estoque Encalhado**
+- ✅ **OK**
 
 ---
 
 ## 🔍 Funcionalidades
 
-- ✅ Geração automática de base fictícia de vendas (90 dias)
-- 📈 Previsão de demanda para os próximos 15 dias
-- 📉 Média móvel para tendência
-- 🚨 Alertas de estoque:  
-  - `⚠️ Estoque Baixo`  
-  - `📦 Encalhado`  
-  - `✅ OK`
-- 🧾 Exportação em Excel com abas de previsão e resumo de alertas
-- 🖥️ Dashboard interativo com Streamlit
-
----
-
-## 🧠 Tecnologias usadas
-
-- **Python**
-- **Pandas**, **NumPy**, **Matplotlib**, **Seaborn**
-- **Scikit-learn** (regressão linear)
-- **Streamlit** (para dashboard interativo)
+- Geração automática de base fictícia de vendas (90 dias)
+- Previsão de demanda para os próximos 15 dias usando **Regressão Linear**
+- Média móvel de 7 dias para identificar tendência
+- Alertas automáticos de estoque
+- Exportação de resultados em Excel (`previsoes_alertas.xlsx`)
+- Dashboard interativo com **Streamlit**
 
 ---
 
 ## 📂 Estrutura do Projeto
 
-```bash
-smartstock-previsao-estoque/
-├── data/
-│   └── vendas_ficticias.csv        # Base gerada com dados simulados
-├── output/
-│   ├── alertas.csv                 # Resumo dos alertas
-│   ├── previsoes.csv               # Detalhamento das previsões
-│   ├── previsoes_alertas.xlsx      # Excel com as duas abas
-│   └── grafico_vendas.png          # Imagem com gráfico gerado
-├── src/
-│   ├── app.py                      # App Streamlit
-│   └── previsao_completa.py        # Script principal de geração + previsão
-├── requirements.txt                # Dependências do projeto
-└── README.md                       # Documentação do projeto
+```text
+📂 smartstock-previsao-estoque
+  ┣ 📂 data                 # Base de vendas fictícia
+  ┣ 📂 output               # Resultados e gráficos gerados
+  ┣ 📂 src                  # Scripts e app Streamlit
+  ┣ ├─ app.py               # Dashboard interativo
+  ┣ └─ previsao_completa.py # Script de geração de previsões + alertas
+  ┣ 📜 requirements.txt     # Dependências do projeto
+  ┗ 📜 README.md            # Documentação
 ```
 
 ---
 
-## 🚀 Como rodar localmente
+## 🧠 Como o modelo funciona
 
-### 1. Clonar o repositório
+1. Para cada produto, calcula-se a **média móvel de 7 dias** para identificar tendências.
+2. Treina um **modelo de regressão linear** com os últimos 90 dias de vendas.
+3. Gera previsões para os próximos 15 dias.
+4. Compara a média das previsões com o estoque atual e define o **status do produto**.
+
+---
+
+## 📸 Demonstração
+
+
+
+---
+
+## 🧪 Como rodar localmente
 
 ```bash
+# 1. Clonar repositório
 git clone https://github.com/LeonardCoelho/smartstock-previsao-estoque.git
 cd smartstock-previsao-estoque
-```
 
-### 2. (Opcional) Criar ambiente virtual
-
-```bash
+# 2. (Opcional) Criar ambiente virtual
 python -m venv .venv
 source .venv/bin/activate    # Linux/Mac
-.venv\Scripts\activate     # Windows
-```
+.venv\Scripts\activate       # Windows
 
-### 3. Instalar dependências
-
-```bash
+# 3. Instalar dependências
 pip install -r requirements.txt
-```
 
-### 4. Gerar previsão via script
-
-```bash
+# 4. Gerar previsão via script
 python src/previsao_completa.py
-```
 
-> Resultado salvo em `output/previsoes_alertas.xlsx` e `output/grafico_vendas.png`.
-
-### 5. Rodar o dashboard interativo
-
-```bash
+# 5. Rodar dashboard interativo
 streamlit run src/app.py
 ```
 
 ---
 
-## ☁️ Como rodar na nuvem (Streamlit Cloud)
+## ☁️ Rodar na nuvem (Streamlit Cloud)
 
-1. Suba seu repositório para o GitHub
-2. Vá em: https://streamlit.io/cloud
-3. Clique em "New App"
-4. Selecione seu repositório
-5. No campo **"Main file path"**, coloque:
+1. Suba o repositório no GitHub
+2. Vá para: [https://streamlit.io/cloud](https://streamlit.io/cloud)
+3. Clique em **New App** e selecione seu repositório
+4. No campo `Main file path`, coloque: `src/app.py`
+5. Clique em **Deploy** 🚀
 
-```
-src/app.py
-```
-
-6. Clique em "Deploy" e pronto 🚀
-
----
-
-## 🧪 Exemplo de Saída
-
-- 📅 Previsões diárias para cada produto
-- 📊 Gráfico com vendas reais + média móvel
-- 🚨 Alertas indicando risco de ruptura ou excesso
-- 📥 Download do Excel com os resultados
-
----
-
-## 💡 Ideias de melhoria
-
-- Subir dados reais via CSV
-- Incluir novos modelos (ARIMA, Prophet, etc.)
-- Calcular custo de ruptura ou excesso
-- Criar histórico de execução
-- Deploy com Docker, Streamlit Cloud ou HuggingFace Spaces
+A aplicação estará online para visualização e download dos resultados.
 
 ---
 
 ## 👨‍💻 Autor
 
-**Leonardo Coelho**  
-🚛 Analista de Transportes | 📊 Pós em Data Science & Machine Learning  
-📍 Campinas - SP | [linkedin.com/in/leonardcoelho](https://www.linkedin.com/in/leonardcoelho)
+**Leonardo Coelho**\
+🚛 Analista de Transportes | 📊 Pós em Data Science & Machine Learning\
+📍 Campinas - SP\
+🔗 [GitHub](https://github.com/LeonardCoelho) | [LinkedIn](https://linkedin.com/in/leonardcoelho)
 
----
