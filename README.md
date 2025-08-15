@@ -2,6 +2,8 @@
 
 SmartStock é uma simulação de previsão de demanda de produtos usando **Machine Learning**, voltada para profissionais de logística e supply chain. O projeto gera alertas automáticos de estoque e dashboards interativos para auxiliar a tomada de decisão.
 
+🔗 **[Acesse o App Online](https://smartstock-previsao-estoque-wjjphgcdqbwhk6h3vunddk.streamlit.app/)**
+
 ---
 
 ## 🎯 Objetivo
@@ -51,7 +53,7 @@ Aplicar ciência de dados na previsão de vendas dos próximos dias e comparar c
 
 ## 📸 Demonstração
 
-
+![App Preview](imagem%20app%201.png)
 
 ---
 
